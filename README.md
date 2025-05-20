@@ -39,6 +39,7 @@
    - 검색 및 결과 표시 기능
 
 5. **시스템 구성도**
+   <br>
    ![image](https://github.com/user-attachments/assets/829bc57f-fa76-44b3-8202-d97d48cffaa4)
 
 

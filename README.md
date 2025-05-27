@@ -62,3 +62,66 @@
 - 사전 훈련된 감성 분석 모델 (sentiment_analysis_model.h5)
 - 토크나이저 (tokenizer.pickle)
 - 모델 설정 정보 (model_config.pickle)
+
+## 4. 핵심코드 
+
+## 4.1 데이터 수집 (Crawler.py)
+## 핵심 기능: 네이버 쇼핑에서 책 검색 후 리뷰 수집
+
+def find_book(text):
+    # 1. 웹 드라이버로 네이버 쇼핑 접속
+    driver = webdriver.Chrome()
+    url = f"https://search.shopping.naver.com/book/search?query={text}"
+    
+    # 2. 검색 결과에서 책 링크들 추출
+    elements = driver.find_elements(By.CSS_SELECTOR, 'a.bookListItem_info_top__DLxpl')
+    hrefs = [el.get_attribute('href') for el in elements]
+    
+    # 3. 각 책 페이지 방문하여 리뷰 수집
+    for detail_url in hrefs:
+        # 리뷰 탭 클릭 → 더보기 버튼 클릭 → 리뷰 텍스트 추출
+        reviews = soup.select('#book_section-review > ul > li > div.reviewItem_review__LEKrI > p')
+
+## 4.2 감성 분석 (Mining.py)
+## 핵심 기능: 수집된 리뷰를 모델로 감성 분석
+
+def analyze_sentiment(reviews):
+    # 1. 사전 훈련된 모델과 토크나이저 불러오기
+    model = tf.keras.models.load_model('sentiment_analysis_model.h5')
+    tokenizer = pickle.load(open('tokenizer.pickle', 'rb'))
+    
+    # 2. 텍스트를 숫자로 변환 (토큰화)
+    sequences = tokenizer.texts_to_sequences(reviews)
+    
+    # 3. 모든 리뷰 길이를 동일하게 맞춤 (패딩)
+    padded_data = pad_sequences(sequences, maxlen=max_sequence_len)
+    
+    # 4. 모델로 감성 예측
+    predictions = model.predict(padded_data)
+    
+    # 5. 결과를 사람이 이해할 수 있는 형태로 변환
+    sentiment_map = {0: "부정적", 1: "중립적", 2: "긍정적"}
+    results = []
+    for pred in predictions:
+        sentiment_idx = np.argmax(pred)  # 가장 높은 확률의 감성
+        sentiment = sentiment_map[sentiment_idx]
+        confidence = float(pred[sentiment_idx])  # 확신도
+
+
+## 4.3 웹 인터페이스 (Main.py)
+## 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
+
+ 1. 사용자로부터 검색어 입력받기
+keyword = st.sidebar.text_input("검색 키워드")
+
+if keyword:
+    # 2. 크롤링으로 리뷰 수집
+    reviews = nbc.find_book(keyword)
+    
+    # 3. 감성 분석 실행
+    analysis = mining.analyze_sentiment(reviews)
+    
+    # 4. 결과를 차트와 표로 표시
+    chart = viz.show_sentiment_pie(analysis['counts'])
+    st.pyplot(chart)
+

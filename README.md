@@ -87,6 +87,7 @@ def find_book(text):
 ## 핵심 기능: 수집된 리뷰를 모델로 감성 분석
 <br>
     def analyze_sentiment(reviews):
+    
     # 1. 사전 훈련된 모델과 토크나이저 불러오기
     model = tf.keras.models.load_model('sentiment_analysis_model.h5')
     tokenizer = pickle.load(open('tokenizer.pickle', 'rb'))
@@ -112,6 +113,7 @@ def find_book(text):
 ## 4.3 웹 인터페이스 (Main.py)
 ## 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
 <br>
+ 
  1. 사용자로부터 검색어 입력받기
 keyword = st.sidebar.text_input("검색 키워드")
 

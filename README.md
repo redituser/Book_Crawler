@@ -104,8 +104,8 @@
         # 리뷰 탭 클릭 → 더보기 버튼 클릭 → 리뷰 텍스트 추출
         reviews = soup.select('#book_section-review > ul > li > div.reviewItem_review__LEKrI > p')
 
-## 4.2 감성 분석 (Mining.py)
-## 핵심 기능: 수집된 리뷰를 모델로 감성 분석
+### 4.2 감성 분석 (Mining.py)
+### 핵심 기능: 수집된 리뷰를 모델로 감성 분석
 <br>
      def analyze_sentiment(reviews):
     
@@ -131,8 +131,8 @@
         confidence = float(pred[sentiment_idx])  # 확신도
 
 
-## 4.3 웹 인터페이스 (Main.py)
-## 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
+### 4.3 웹 인터페이스 (Main.py)
+### 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
 <br>
  
     1. 사용자로부터 검색어 입력받기

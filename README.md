@@ -62,7 +62,27 @@
       
       s_sentiment(str_review)
 
-### 3.2 
+### 3.2 데이터 전처리
+      def map_sentiment(score):
+       if score < 0: return 0    # 부정
+       elif score == 0: return 1 # 중립  
+       else: return 2           # 긍정
+
+      #텍스트를 숫자 시퀀스로 변환
+      tokenizer = Tokenizer()
+      sequences = tokenizer.texts_to_sequences(reviews)
+      padded_data = pad_sequences(sequences, maxlen=max_sequence_len)
+### 3.3 모델 구조
+      model = Sequential([
+      Embedding(total_words, 64, input_length=max_sequence_len),
+      Bidirectional(LSTM(64, return_sequences=True)),
+      Bidirectional(LSTM(32)),
+      Dense(32, activation='relu'),
+      Dropout(0.5),
+      Dense(3, activation='softmax')  # 3개 클래스 분류
+])
+
+
 
 ## 4. 핵심코드 
 

@@ -84,7 +84,7 @@
 
 
 ### 3.4 학습 결과
-![스크린샷 2025-05-20 125253](https://github.com/user-attachments/assets/258f72c4-6f7c-436d-951b-ac0f7d477869)
+![스크린샷 2025-05-20 123558](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
 
 총 데이터: 304,027건<br>
 테스트 정확도: 88.22%<br>

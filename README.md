@@ -63,11 +63,8 @@
       s_sentiment(str_review)
 
 ### 3.2 
-- 감성 분석 결과 (감성 레이블, 확신도)
-- 감성 분포 차트
-- 리뷰 예시 목록
 
-### 4. 핵심코드 
+## 4. 핵심코드 
 
 ### 4.1 데이터 수집 (Crawler.py)
 ### 핵심 기능: 네이버 쇼핑에서 책 검색 후 리뷰 수집
@@ -132,4 +129,5 @@
     chart = viz.show_sentiment_pie(analysis['counts'])
     st.pyplot(chart)
 
-## 5. ㄱ
+## 5.결과
+

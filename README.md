@@ -114,10 +114,10 @@ def find_book(text):
 ## 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
 <br>
  
- 1. 사용자로부터 검색어 입력받기
-keyword = st.sidebar.text_input("검색 키워드")
+    1. 사용자로부터 검색어 입력받기
+    keyword = st.sidebar.text_input("검색 키워드")
 
-if keyword:
+    if keyword:
     # 2. 크롤링으로 리뷰 수집
     reviews = nbc.find_book(keyword)
     

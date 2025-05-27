@@ -102,7 +102,7 @@
     # 4. 모델로 감성 예측
     predictions = model.predict(padded_data)
     
-    # 5. 결과를 사람이 이해할 수 있는 형태로 변환
+    # 5. 결과를 이해하기 쉽게 변환
     sentiment_map = {0: "부정적", 1: "중립적", 2: "긍정적"}
     results = []
     for pred in predictions:

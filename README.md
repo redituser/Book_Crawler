@@ -49,17 +49,18 @@
 ![스크린샷 2025-05-27 233721](https://github.com/user-attachments/assets/a9bb2f5e-49b5-4604-99e5-9e98e29fc8a2)
 -가장 오른쪽에 있는 숫자가 감성지수 이다 (0보다 크면 '좋음' 0 이면 '중립' -1 이하면 '나쁨')
 # 라벨링 예시
-score_dict = { '좋아요':1 , '최고에요':1, '훌륭해요':1, '멋져요':1 , '별로예요':-1, '싫어요':-1, '나빠요':-1, '비싸요':-1 }
-str_review = '그 영화는 훌륭해요 멋져요 그래서 비싸요'
-def s_sentiment(sentence):
-  sentence = sentence.split(' ')
-  all_score = 0  
-  for word,value in score_dict.items():
-    for i in sentence:
-      if i == word:
-        all_score += value
-  print(all_score)    
-s_sentiment(str_review)
+      score_dict = { '좋아요':1 , '최고에요':1, '훌륭해요':1, '멋져요':1 , '별로예요':-1, '싫어요':-1, '나빠요':-1, '비싸요':-1 }
+      str_review = '그 영화는 훌륭해요 멋져요 그래서 비싸요'
+      def s_sentiment(sentence):
+        sentence = sentence.split(' ')
+        all_score = 0  
+        for word,value in score_dict.items():
+          for i in sentence:
+            if i == word:
+               all_score += value
+        print(all_score)    
+      
+      s_sentiment(str_review)
 
 ### 3.3 출력 데이터
 - 감성 분석 결과 (감성 레이블, 확신도)

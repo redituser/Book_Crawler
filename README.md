@@ -67,8 +67,9 @@
 
 ## 4.1 데이터 수집 (Crawler.py)
 ## 핵심 기능: 네이버 쇼핑에서 책 검색 후 리뷰 수집
-
+<br>
 def find_book(text):
+      
     # 1. 웹 드라이버로 네이버 쇼핑 접속
     driver = webdriver.Chrome()
     url = f"https://search.shopping.naver.com/book/search?query={text}"
@@ -84,7 +85,7 @@ def find_book(text):
 
 ## 4.2 감성 분석 (Mining.py)
 ## 핵심 기능: 수집된 리뷰를 모델로 감성 분석
-
+<br>
 def analyze_sentiment(reviews):
     # 1. 사전 훈련된 모델과 토크나이저 불러오기
     model = tf.keras.models.load_model('sentiment_analysis_model.h5')
@@ -110,7 +111,7 @@ def analyze_sentiment(reviews):
 
 ## 4.3 웹 인터페이스 (Main.py)
 ## 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
-
+<br>
  1. 사용자로부터 검색어 입력받기
 keyword = st.sidebar.text_input("검색 키워드")
 

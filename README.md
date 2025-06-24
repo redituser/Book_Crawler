@@ -210,11 +210,14 @@ def analyze_sentiment(reviews):
     st.pyplot(chart)
 
 ## 5.결과
+LSTM 사용시 <br>
+![스크린샷 2025-06-24 211252](https://github.com/user-attachments/assets/4daec3a4-1fdf-43e1-bd81-90de72e72f5d)
+![스크린샷 2025-06-24 211304](https://github.com/user-attachments/assets/ed4d2392-d84e-4224-a24b-72aebebef44c)
+![스크린샷 2025-06-24 211308](https://github.com/user-attachments/assets/414dea0e-291a-4ef5-b74c-452d330791fc)
 
-![스크린샷 2025-05-20 124221](https://github.com/user-attachments/assets/e961bda1-81ab-4be2-87ec-ed2fcce34c55)
-![스크린샷 2025-05-20 124253](https://github.com/user-attachments/assets/160c71e0-8cfa-4677-bb0f-ece39e746435)
-![스크린샷 2025-05-20 124329](https://github.com/user-attachments/assets/08dbe5cc-21e8-44a1-9c65-22e1c19387a1)
-![스크린샷 2025-05-20 124418](https://github.com/user-attachments/assets/8000554a-c7ed-4ece-80ed-af877d37c538)
-![스크린샷 2025-05-20 124357](https://github.com/user-attachments/assets/30d216bd-a9a2-47f7-a618-757237130669)
+
+
+
+
 
 현재 결과는 다음과 같습니다

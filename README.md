@@ -65,6 +65,11 @@ def s_sentiment(sentence):
 
 s_sentiment(str_review)
 ```
+### 라벨링(개선)
+## LM 스튜디오의 GEMMA 를 사용하여 긍정,중립,부정 의 결과값을 csv파일로 저장
+![image](https://github.com/user-attachments/assets/6bf7a376-1e8d-4516-8b96-11638ba2568a)
+
+
 
 ### 3.2 데이터 전처리
 ```python
@@ -83,7 +88,7 @@ tokenizer = BertTokenizer.from_pretrained('klue/bert-base')
 encoded_inputs = tokenizer(reviews, max_length=128, padding=True, truncation=True, return_tensors='tf')
 ```
 ### ~~3.3 모델 구조 (기존 LSTM)~~
-~~
+
 ```python
 model = Sequential([
     Embedding(total_words, 64, input_length=max_sequence_len),
@@ -94,7 +99,7 @@ model = Sequential([
     Dense(3, activation='softmax')  # 3개 클래스 분류
 ])
 ```
-~~
+
 
 ### 3.4 모델 구조 (개선 BERT)
 - **사전 학습 모델**: `klue/bert-base` (한국어 특화 BERT 모델)
@@ -121,11 +126,17 @@ class CustomBertForSequenceClassification(tf.keras.Model):
 ```
 
 ### 3.5 학습 결과
+(BILSTM)
 ![스크린샷 2025-05-20 123558](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
 
 총 데이터: 304,027건<br>
-테스트 정확도: 88.22% (LSTM), **(BERT 모델 정확도 추가 필요)**<br>
+테스트 정확도: 88.22% (LSTM), <br>
 
+(BERT)
+![image](https://github.com/user-attachments/assets/4e53843d-7696-416a-9c8b-a1114e66da98)
+
+총 데이터: 40만건<br>
+테스트 정확도 : 87.34% (BERT)<br>
 
 
 ## 4. 핵심 코드

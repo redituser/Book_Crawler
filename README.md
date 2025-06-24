@@ -127,13 +127,13 @@ class CustomBertForSequenceClassification(tf.keras.Model):
 ```
 
 ### 3.4 학습 결과
-(BILSTM)
+## LSTM
 ![스크린샷 2025-05-20 123558](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
 
 총 데이터: 304,027건<br>
 테스트 정확도: 88.22% (LSTM), <br>
 
-(BERT)<br>
+## BERT
 ![image](https://github.com/user-attachments/assets/4e53843d-7696-416a-9c8b-a1114e66da98)
 
 총 데이터: 304,027건<br>

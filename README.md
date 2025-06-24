@@ -215,13 +215,13 @@ def analyze_sentiment(reviews):
 ![스크린샷 2025-06-24 211304](https://github.com/user-attachments/assets/ed4d2392-d84e-4224-a24b-72aebebef44c)
 ![스크린샷 2025-06-24 211308](https://github.com/user-attachments/assets/414dea0e-291a-4ef5-b74c-452d330791fc)
 
-<br>
-<br>
-##BERT 사용시##<br>
-![스크린샷 2025-06-24 211838](https://github.com/user-attachments/assets/25c8739a-f3e0-4553-a423-b18973def8eb)
-![스크린샷 2025-06-24 211853](https://github.com/user-attachments/assets/03e37e01-897a-4550-82d2-974b9713e5a6)
-![스크린샷 2025-06-24 211857](https://github.com/user-attachments/assets/88188d71-1960-4e57-b249-d24fce87002d)
-![스크린샷 2025-06-24 211902](https://github.com/user-attachments/assets/0a6f3af8-3ec4-4e7f-a33f-a0152e4ec709)
+
+##BERT 사용시## <br>
+![스크린샷 2025-06-24 211838](https://github.com/user-attachments/assets/59ccdcf7-47cd-4121-82c6-b115afdbafa8)
+![스크린샷 2025-06-24 211853](https://github.com/user-attachments/assets/2ebad13a-e15b-4b62-bbc4-a192b79780dd)
+![스크린샷 2025-06-24 211857](https://github.com/user-attachments/assets/c9d4048c-68ee-412d-b434-04478363c1fa)
+![스크린샷 2025-06-24 211902](https://github.com/user-attachments/assets/f026424b-6b05-45c0-adc3-92012b9d7090)
+
 
 
 BERT 모델의 감성분석이 좀더 좋게 나온걸 확인 가능합니다

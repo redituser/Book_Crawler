@@ -132,7 +132,7 @@ class CustomBertForSequenceClassification(tf.keras.Model):
 총 데이터: 304,027건<br>
 테스트 정확도: 88.22% (LSTM), <br>
 
-(BERT)
+(BERT)<br>
 ![image](https://github.com/user-attachments/assets/4e53843d-7696-416a-9c8b-a1114e66da98)
 
 총 데이터: 40만건<br>

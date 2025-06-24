@@ -102,7 +102,7 @@ model = Sequential([
 ```
 
 
-### 3.4 모델 구조 (개선 BERT)
+### 3.3 모델 구조 (개선 BERT)
 - **사전 학습 모델**: `klue/bert-base` (한국어 특화 BERT 모델)
 - **전이 학습 방식**: 사전 학습된 BERT 모델 위에 분류를 위한 Dense 레이어를 추가하여 Fine-tuning(미세 조정)
 
@@ -126,7 +126,7 @@ class CustomBertForSequenceClassification(tf.keras.Model):
         return logits
 ```
 
-### 3.5 학습 결과
+### 3.4 학습 결과
 (BILSTM)
 ![스크린샷 2025-05-20 123558](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
 
@@ -136,7 +136,7 @@ class CustomBertForSequenceClassification(tf.keras.Model):
 (BERT)<br>
 ![image](https://github.com/user-attachments/assets/4e53843d-7696-416a-9c8b-a1114e66da98)
 
-총 데이터: 40만건<br>
+총 데이터: 304,027건<br>
 테스트 정확도 : 87.34% (BERT)<br>
 
 

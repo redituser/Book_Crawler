@@ -210,6 +210,7 @@ def analyze_sentiment(reviews):
     st.pyplot(chart)
 
 ## 5.결과
+
 ## LSTM 사용시  <br>
 ![스크린샷 2025-06-24 211252](https://github.com/user-attachments/assets/4daec3a4-1fdf-43e1-bd81-90de72e72f5d)
 ![스크린샷 2025-06-24 211304](https://github.com/user-attachments/assets/ed4d2392-d84e-4224-a24b-72aebebef44c)

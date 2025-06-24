@@ -39,7 +39,7 @@ if keyword:
         with st.expander("일부 리뷰 예시 보기"):
             # 각 감성별 리뷰 샘플 3개씩 표시
             for sentiment in ["긍정적", "중립적", "부정적"]:
-                samples = [r for r in analysis['reviews'] if r['sentiment'] == sentiment][:3]
+                samples = [r for r in analysis['reviews'] if r['sentiment'] == sentiment][:5]
                 if samples:
                     st.subheader(f"{sentiment} 리뷰 예시")
                     for i, sample in enumerate(samples, 1):

@@ -1,0 +1,9 @@
+# Python Caches
+__pycache__/
+*.pyc
+
+# Large Model & Data Files
+*.h5
+*.pickle
+*.txt
+*.json

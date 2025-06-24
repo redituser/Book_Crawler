@@ -67,7 +67,7 @@ s_sentiment(str_review)
 ```
 
 ### 라벨링(개선)
-## LM 스튜디오의 GEMMA 를 사용하여 긍정,중립,부정 의 결과값을 csv파일로 저장
+ LM 스튜디오의 GEMMA 를 사용하여 긍정,중립,부정 의 결과값을 csv파일로 저장
 ![image](https://github.com/user-attachments/assets/6bf7a376-1e8d-4516-8b96-11638ba2568a)
 
 

@@ -45,9 +45,9 @@
 
 ## 3. 모델 학습 방법
 
-### 3.1 KNU를 사용한 라벨링
-![스크린샷 2025-05-27 233721](https://github.com/user-attachments/assets/a9bb2f5e-49b5-4604-99e5-9e98e29fc8a2)
--가장 오른쪽에 있는 숫자가 감성지수 입니다
+~~### 3.1 KNU를 사용한 라벨링~~
+~~![스크린샷 2025-05-27 233721](https://github.com/user-attachments/assets/a9bb2f5e-49b5-4604-99e5-9e98e29fc8a2)~~
+~~-가장 오른쪽에 있는 숫자가 감성지수 입니다~~
 
 ### 라벨링 예시
 ```python

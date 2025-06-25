@@ -129,7 +129,6 @@ def analyze_sentiment(reviews):
 
 * Python 3.8 이상
 * 필요한 라이브러리 설치:
-* 
 ```bash
 pip install streamlit transformers tensorflow selenium beautifulsoup4 matplotlib
 ```

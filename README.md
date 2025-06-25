@@ -118,7 +118,6 @@ def analyze_sentiment(reviews):
     st.pyplot(chart)
 
 
-아래는 요청하신 내용에 맞춰 **사용자 실행 방법**을 마크다운 형식으로 추가한 예시입니다. `README.md`에 붙여넣을 수 있도록 구성하였습니다:
 
 ---
 

@@ -118,3 +118,60 @@ def analyze_sentiment(reviews):
     st.pyplot(chart)
 
 
+아래는 요청하신 내용에 맞춰 **사용자 실행 방법**을 마크다운 형식으로 추가한 예시입니다. `README.md`에 붙여넣을 수 있도록 구성하였습니다:
+
+---
+
+## 5. 실행 방법
+
+### 5.1 사전 준비
+
+먼저 아래와 같은 환경이 준비되어 있어야 합니다:
+
+* Python 3.8 이상
+* 필요한 라이브러리 설치:
+
+```bash
+pip install -r requirements.txt
+```
+
+또는 아래 개별 설치:
+
+```bash
+pip install streamlit transformers tensorflow selenium beautifulsoup4 matplotlib
+```
+
+---
+
+### 5.2 실행 방법 (Streamlit WebApp)
+
+1. **터미널/명령 프롬프트 열기**
+2. `Main.py` 파일이 있는 디렉토리로 이동:
+
+```bash
+cd /자신의/프로젝트/경로
+```
+
+예시:
+
+```bash
+cd C:\Users\myname\projects\Book_Review_SA
+```
+
+3. **Streamlit 앱 실행**:
+
+```bash
+streamlit run Main.py
+```
+
+4. 브라우저가 자동으로 열리며 웹 UI에서 감성 분석 사용 가능
+   (열리지 않으면 `http://localhost:8501` 직접 입력)
+
+---
+
+### 5.3 실행 시 주의 사항
+
+* `ChromeDriver`와 크롬 브라우저 버전이 맞아야 합니다.
+* 크롤링 시 사이트 구조 변경에 따라 코드 수정이 필요할 수 있습니다.
+* BERT 모델 학습이 완료된 상태여야 정상 동작합니다 (`tf_model.h5` 필요).
+

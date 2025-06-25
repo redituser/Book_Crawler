@@ -1,63 +1,27 @@
-# 책 리뷰 감성 분석 시스템
+---
 
-## 1. 개요
+# Book\_Review\_SA - 학습 데이터 & 모델 비교
 
-### 1.1 목적
-본 프로젝트는 네이버 책 검색 결과에서 수집한 리뷰 데이터를 **BERT 기반의 딥러닝 모델**을 활용하여 감성 분석하고, 그 결과를 시각적으로 표현하는 웹 애플리케이션입니다.
+---
 
-### 1.2 범위
-- 네이버 쇼핑의 도서 리뷰 크롤링
-- 수집된 리뷰 데이터의 감성 분석(긍정/중립/부정)
-- 분석 결과의 시각화
+## 1. 모델 학습 방법
 
-## 2. 시스템 아키텍처
+### 1.1 기존 라벨링 방식 (KNU 감성사전)
 
-### 2.1 주요 구성 요소
-1. **데이터 수집 모듈** (Crawler.py)
-    - Selenium 및 BeautifulSoup을 활용한 웹 크롤링
-    - 도서 검색 및 리뷰 추출 기능
+* KNU 감성사전을 기반으로 단어 매칭으로 감성 점수를 계산
+* 문장 내 단어 점수를 합산하여 감성 지수 도출
 
-2. **감성 분석 모듈** (Mining.py)
-    - **`klue/bert-base` 모델 기반의 Fine-tuning**
-    - 텍스트 전처리 및 분석 기능
+예시 코드:
 
-3. **시각화 모듈** (Visualizer.py)
-    - Matplotlib을 활용한 데이터 시각화
-    - 리뷰 감성 분포 차트 생성
-
-4. **사용자 인터페이스** (Main.py)
-    - Streamlit 기반 웹 인터페이스
-    - 검색 및 결과 표시 기능
-
-5. **시스템 구성도**
-    <br>
-    ![image](https://github.com/user-attachments/assets/829bc57f-fa76-44b3-8202-d97d48cffaa4)
-
-
-### 2.2 외부 라이브러리
-- TensorFlow/Keras: 감성 분석 모델 구현
-- **Transformers**: BERT 모델 로딩 및 토큰화
-- Selenium/BeautifulSoup: 웹 크롤링
-- Streamlit: 웹 인터페이스
-- Matplotlib: 데이터 시각화
-
-
-
-## 3. 모델 학습 방법
-
-~~### 3.1 KNU를 사용한 라벨링~~
-~~![스크린샷 2025-05-27 233721](https://github.com/user-attachments/assets/a9bb2f5e-49b5-4604-99e5-9e98e29fc8a2)~~
-~~-가장 오른쪽에 있는 숫자가 감성지수 입니다~~
-
-~~### 라벨링 예시~~
 ```python
-score_dict = { '좋아요':1 , '최고에요':1, '훌륭해요':1, '멋져요':1 , '별로예요':-1, '싫어요':-1, '나빠요':-1, '비싸요':-1 }
+score_dict = { '좋아요':1 , '최고에요':1, '훌륭해요':1, '멋져요':1 , 
+               '별로예요':-1, '싫어요':-1, '나빠요':-1, '비싸요':-1 }
 str_review = '그 영화는 훌륭해요 멋져요 그래서 비싸요'
 
 def s_sentiment(sentence):
     sentence = sentence.split(' ')
     all_score = 0
-    for word,value in score_dict.items():
+    for word, value in score_dict.items():
         for i in sentence:
             if i == word:
                 all_score += value
@@ -66,29 +30,51 @@ def s_sentiment(sentence):
 s_sentiment(str_review)
 ```
 
-### 3.1 라벨링(개선)
-GEMMA 를 사용하여 긍정,중립,부정 의 결과값을 csv파일로 저장
-![image](https://github.com/user-attachments/assets/6bf7a376-1e8d-4516-8b96-11638ba2568a)
+📷 라벨링 기준 예시
+![KNU 예시](https://github.com/user-attachments/assets/a9bb2f5e-49b5-4604-99e5-9e98e29fc8a2)
 
+---
 
+### 1.1 개선 라벨링 방식 (GEMMA 기반 분류기)
 
-### 3.2 데이터 전처리
+* GEMMA를 활용하여 리뷰를 `긍정`, `중립`, `부정`으로 직접 분류
+* 결과를 `.csv`로 저장하여 학습에 활용
+
+ GEMMA 결과 예시
+![GEMMA 예시](https://github.com/user-attachments/assets/6bf7a376-1e8d-4516-8b96-11638ba2568a)
+
+---
+
+### 1.2 🔧 데이터 전처리
+
+#### 클래스 매핑 함수:
+
 ```python
 def map_sentiment(score):
     if score < 0: return 0   # 부정
     elif score == 0: return 1 # 중립
     else: return 2           # 긍정
+```
 
-# (기존) 텍스트를 숫자 시퀀스로 변환
-# tokenizer = Tokenizer()
-# sequences = tokenizer.texts_to_sequences(reviews)
-# padded_data = pad_sequences(sequences, maxlen=max_sequence_len)
+#### 토크나이저 비교:
 
-# (개선) BERT 토크나이저 사용
+| 방식    | 사용 모델                         | 설명              |
+| ----- | ----------------------------- | --------------- |
+| 기존 방식 | `Tokenizer` + `pad_sequences` | 텍스트를 정수 시퀀스로 변환 |
+| 개선 방식 | `klue/bert-base` (BERT 토크나이저) | 문맥 기반 임베딩 사용    |
+
+```python
+from transformers import BertTokenizer
+
 tokenizer = BertTokenizer.from_pretrained('klue/bert-base')
 encoded_inputs = tokenizer(reviews, max_length=128, padding=True, truncation=True, return_tensors='tf')
 ```
-### ~~3.3 모델 구조 (기존 LSTM)~~
+
+---
+
+### 1.3 모델 구조 비교
+
+#### (기존) BiLSTM 모델 구조:
 
 ```python
 model = Sequential([
@@ -97,18 +83,13 @@ model = Sequential([
     Bidirectional(LSTM(32)),
     Dense(32, activation='relu'),
     Dropout(0.5),
-    Dense(3, activation='softmax')  # 3개 클래스 분류
+    Dense(3, activation='softmax')
 ])
 ```
 
-
-### 3.3 모델 구조 (개선 BERT)
-- **사전 학습 모델**: `klue/bert-base` (한국어 특화 BERT 모델)
-- **전이 학습 방식**: 사전 학습된 BERT 모델 위에 분류를 위한 Dense 레이어를 추가하여 Fine-tuning(미세 조정)
+#### (개선) BERT 기반 모델 구조:
 
 ```python
-# CustomBertForSequenceClassification (in Mining.py)
-
 class CustomBertForSequenceClassification(tf.keras.Model):
     def __init__(self, bert_model_core, num_labels, dropout_rate=0.1, **kwargs):
         super().__init__(**kwargs)
@@ -126,104 +107,56 @@ class CustomBertForSequenceClassification(tf.keras.Model):
         return logits
 ```
 
-### 3.4 학습 결과
-## LSTM
-![스크린샷 2025-05-20 123558](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
+---
 
-총 데이터: 304,027건<br>
-테스트 정확도: 88.22% (LSTM), <br>
+## 2. 모델 성능 비교
 
-## BERT
-![image](https://github.com/user-attachments/assets/4e53843d-7696-416a-9c8b-a1114e66da98)
+### 데이터 크기
 
-총 데이터: 304,027건<br>
-테스트 정확도 : 87.34% (BERT)<br>
+> **총 리뷰 수: 304,027건**
 
+---
 
-## 4. 핵심 코드
+### BiLSTM 결과
 
-### 4.1 데이터 수집 (Crawler.py)
-### 핵심 기능: 네이버 쇼핑에서 책 검색 후 리뷰 수집
-<br>
+* **테스트 정확도**: `88.22%`
 
-```python
-def find_book(text):
+- **정확도 그래프**  
+  ![BiLSTM 정확도](https://github.com/user-attachments/assets/44e9c859-bb74-47a4-a680-4d2d89bfb6ef)
 
-    # 1. 웹 드라이버로 네이버 쇼핑 접속
-    driver = webdriver.Chrome()
-    url = f"[https://search.shopping.naver.com/book/search?query=](https://search.shopping.naver.com/book/search?query=){text}"
+- **Confusion Matrix**  
+  ![Confusion](https://github.com/user-attachments/assets/9d83b549-a680-4978-935a-5a629fc0a46e)
 
-    # 2. 검색 결과에서 책 링크들 추출
-    elements = driver.find_elements(By.CSS_SELECTOR, 'a.bookListItem_info_top__DLxpl')
-    hrefs = [el.get_attribute('href') for el in elements]
+- **Classification Report**  
+  ![Classification Report](https://github.com/user-attachments/assets/5a2165ce-6e8b-4f8a-988c-de97d14e9ce3)
 
-    # 3. 각 책 페이지 방문하여 리뷰 수집
-    for detail_url in hrefs:
-        # 리뷰 탭 클릭 → 더보기 버튼 클릭 → 리뷰 텍스트 추출
-        reviews = soup.select('#book_section-review > ul > li > div.reviewItem_review__LEKrI > p')
-```
+---
 
-### 4.2 감성 분석 (Mining.py)
-### 핵심 기능: 수집된 리뷰를 BERT 모델로 감성 분석
-<br>
+### BERT 결과
 
-```python
-def analyze_sentiment(reviews):
+* **테스트 정확도**: `87.34%`
 
-    # 1. 저장된 BERT 토크나이저와 학습된 모델 가중치 불러오기
-    tokenizer = BertTokenizer.from_pretrained('.')
-    model = CustomBertForSequenceClassification(...) # 모델 구조 생성
-    model.load_weights('tf_model.h5')
+- **정확도 그래프**  
+  ![BERT 정확도](https://github.com/user-attachments/assets/12eb0068-e8b9-4a1a-9b0c-04a4128081ff)
 
-    # 2. 텍스트를 BERT 입력 형식으로 변환 (토큰화)
-    encoded_inputs = tokenizer(
-        reviews,
-        max_length=128,
-        padding='max_length',
-        return_tensors='tf'
-    )
+- **Confusion Matrix**  
+  ![Confusion](https://github.com/user-attachments/assets/5dd0e680-4557-4491-b1ec-3c085b23957f)
 
-    # 3. 모델로 감성 예측
-    predictions = model.predict(dict(encoded_inputs))
+- **Classification Report**  
+  ![Classification Report](https://github.com/user-attachments/assets/805a62b9-cbd8-48b5-a99f-6e2e9fff603b)
 
-    # 4. 결과를 이해하기 쉽게 변환
-    sentiment_map = {0: "부정적", 1: "중립적", 2: "긍정적"}
-    results = []
-    # ... (결과 후처리) ...
-```
+---
 
-### 4.3 웹 인터페이스 (Main.py)
-### 핵심 기능: 사용자가 검색하고 결과를 확인할 수 있는 웹페이지
-<br>
+## 3. 결론 및 분석
 
-    1. 사용자로부터 검색어 입력받기
-    keyword = st.sidebar.text_input("검색 키워드")
+| 항목                | BiLSTM     | BERT               |
+| ----------------- | ---------- | ------------------ |
+| 테스트 정확도           | 88.22%     | 87.34%             |
+| Weighted F1-score | 0.7639     | **0.87**           |
+| 과적합               | 있음         | 있음 (학습 정확도와 차이 존재) |
+| 학습 방식             | 임베딩 + LSTM | 사전학습 + Fine-tuning |
+| 처리 속도             | 빠름         | 상대적으로 느림           |
+| 문맥 이해             | 약함         | **강함**             |
 
-    if keyword:
-    # 2. 크롤링으로 리뷰 수집
-    reviews = nbc.find_book(keyword)
-
-    # 3. 감성 분석 실행
-    analysis = mining.analyze_sentiment(reviews)
-
-    # 4. 결과를 차트와 표로 표시
-    chart = viz.show_sentiment_pie(analysis['counts'])
-    st.pyplot(chart)
-
-## 5.결과
-
-## LSTM 사용시  <br>
-![스크린샷 2025-06-24 211252](https://github.com/user-attachments/assets/4daec3a4-1fdf-43e1-bd81-90de72e72f5d)
-![스크린샷 2025-06-24 211304](https://github.com/user-attachments/assets/ed4d2392-d84e-4224-a24b-72aebebef44c)
-![스크린샷 2025-06-24 211308](https://github.com/user-attachments/assets/414dea0e-291a-4ef5-b74c-452d330791fc)
-
-
-## BERT 사용시  <br>
-![스크린샷 2025-06-24 211838](https://github.com/user-attachments/assets/59ccdcf7-47cd-4121-82c6-b115afdbafa8)
-![스크린샷 2025-06-24 211853](https://github.com/user-attachments/assets/2ebad13a-e15b-4b62-bbc4-a192b79780dd)
-![스크린샷 2025-06-24 211857](https://github.com/user-attachments/assets/c9d4048c-68ee-412d-b434-04478363c1fa)
-![스크린샷 2025-06-24 211902](https://github.com/user-attachments/assets/f026424b-6b05-45c0-adc3-92012b9d7090)
-
-
-
-BERT 모델의 감성분석이 좀더 좋게 나온걸 확인 가능합니다
+>  **결론**:
+> BERT 모델이 정확도는 약간 낮지만, F1-score 기준으로 더 **정밀하고 균형 잡힌 분류** 성능을 보였습니다. 특히 **중립 클래스**나 **경계 상황에서의 표현 해석력**은 BERT가 우수합니다.
